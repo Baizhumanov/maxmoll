@@ -62,7 +62,7 @@ class OrderController extends Controller
         $products = $request->input('products');
 
         // Проверка на наличие продуктов (count не должен превышать текущий count продукта)
-        $dbProducts = Product::all();
+        $dbProducts = Product::whereIn('id', array_keys($products));
         foreach ($products as $id => $count) {
             $dbProduct = $dbProducts->find($id);
             if ($dbProduct->stock < $count) {
